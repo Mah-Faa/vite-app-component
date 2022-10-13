@@ -1,5 +1,7 @@
 <template>
   <svg
+    width="50%"
+    height="50%"
     svg
     version="1.1"
     xmlns="http://www.w3.org/2000/svg"
@@ -339,19 +341,24 @@
     </g>
   </svg>
   <div class="page-contain">
-    <div class="data-card" style="width: 18rem" v-if="showCart">
+    <div class="data-card" v-if="showCart">
       <div class="card-body">
-        <h5 class="card-title">{{ itemUniqe.city }}</h5>
-        <p class="card-text">
-          <span> Id: {{ itemUniqe.id }} </span>
+        <h5 class="card-title">استان: {{ itemUniqe.name }}</h5>
+        <div>
+          <!-- <span> Id: {{ itemUniqe.id }} </span> -->
           <br />
-          <span> country: {{ itemUniqe.country }} </span>
-          <br />
+          <div v-for="(item, index) in itemUniqe.cities" :key="index">
+            <div class="city-div">
+              <!-- {{ index + 1 }}. -->
 
-          <span> Population: {{ itemUniqe.population }} </span>
-          <br />
-          <span> Lat: {{ itemUniqe.lat }} </span>
-        </p>
+              <span>شهرستان: {{ item.name }} </span>
+              <span> عرض جغرافیایی: {{ item.latitude }} </span>
+
+              <span> طول جغرافیایی: {{ item.longitude }} </span>
+            </div>
+            <br />
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -382,11 +389,11 @@ function newJsonWithId(e) {
 newJsonWithId();
 function displayDetail(e) {
   let ids = e.target.id;
+  let newIds = Number(ids) - 1;
   showCart.value = true;
   detailOfCity.value = newJson.value;
-  // detailOfCity.value.filter();
-  itemUniqe.value = detailOfCity.value.find((field) => field.id == ids);
-  console.log(detailOfCity.value.find((field) => field.id == ids));
+  itemUniqe.value = detailOfCity.value.find((field) => field.id == newIds);
+  console.log(detailOfCity.value.find((field) => field.id == newIds));
 
   return itemUniqe;
 }
@@ -424,35 +431,43 @@ svg path {
   /* padding: 2em; */
   font-family: "Open Sans", sans-serif;
 }
+.city-div {
+  /* margin: 1rem; */
+  padding: 1rem;
+  border: 0.5px solid;
+  border-radius: 0.5em;
+  /* display: flex;
+  flex-direction: row-reverse; */
+}
 .svg-card {
-  min-height: 100vh;
-  background: #e7f3f1;
+  /* min-height: 100vh;
+  background: #e7f3f1; */
 }
 .data-card {
   display: flex;
   flex-direction: column;
-  /* max-width: 20.75em;
-  min-height: 20.75em; */
+  max-width: 30.75em;
+  min-height: 30.75em;
   overflow: hidden;
   border-radius: 0.5em;
   text-decoration: none;
   /* background: white; */
-  background: #d8c8ed;
+  background: #cee5d0;
   margin: 1em;
   padding: 2.75em 2.5em;
   box-shadow: 0 1.5em 2.5em -0.5em rgba(#000000, 0.1);
   /* transition: transform 0.45s ease, background 0.45s ease; */
 }
-.data-card:hover {
-  background: #9a7cc0;
+.city-div:hover {
+  background: #94b49f;
   transform: scale(1.02);
 }
 @keyframes slideInFromLeft {
   0% {
-    transform: translateY(-100%);
+    transform: translateX(-100%);
   }
   100% {
-    transform: translateY(0);
+    transform: translateX(0);
   }
 }
 
