@@ -375,16 +375,13 @@ let itemUniqe = ref(null);
 let showCart = ref(false);
 let modalShow = ref(false);
 function displayName(e) {
-  console.log(e.target.getAttribute("title"));
   title.value = e.target.getAttribute("title");
 }
 function newJsonWithId(e) {
-  // let ids = e.target.id;
   newJson.value = json.map(function (o, index) {
     o.id = index++;
     return o;
   });
-  console.log(newJson.value);
 }
 newJsonWithId();
 function displayDetail(e) {
@@ -393,7 +390,6 @@ function displayDetail(e) {
   showCart.value = true;
   detailOfCity.value = newJson.value;
   itemUniqe.value = detailOfCity.value.find((field) => field.id == newIds);
-  console.log(detailOfCity.value.find((field) => field.id == newIds));
 
   return itemUniqe;
 }
